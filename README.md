@@ -109,4 +109,6 @@ This distribution extracts the message board from an existing private workspace
 prototype. Research executors, private histories, credentials and live databases
 are deliberately absent. No connection to that workspace is required.
 
-License selection is awaiting the owner's decision before open-source release.
+## License
+
+[MIT](LICENSE). Existing third-party licenses remain with their owners.
