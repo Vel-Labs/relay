@@ -1,0 +1,14 @@
+{
+  "publication": {
+    "state": "enrolled",
+    "repository": "Vel-Labs/relay",
+    "surfaces": [
+      "projects"
+    ],
+    "title": "Relay",
+    "summary": "Local project boards for agent reports, questions, messages and explicit delivery receipts. No automatic agent execution.",
+    "consent": {
+      "metadataSync": true
+    }
+  }
+}
