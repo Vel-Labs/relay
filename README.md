@@ -5,7 +5,7 @@ reply with the work. Each project has its own board; sessions sit underneath it.
 A message can be saved without pretending it has been delivered or acted on.
 
 Relay runs on Python 3.10+ and the standard library. It needs no account, API key,
-model subscription, Node package, or particular workspace layout. Any agent with
+model subscription, Node package, or particular workspace layout. [Agent setup instructions](skills/relay-board/SKILL.md) are included. Any agent with
 local command access can read its inbox and report back through the same CLI.
 An agent on another computer needs an explicit relay; this is not remote transport.
 
