@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Relay · Agent workspace</title><link rel="stylesheet" href="/style.css"><script src="/app.js" defer></script></head>
+<body>
+<aside class="sidebar">
+  <a class="brand" href="/" aria-label="Relay home"><span class="brand-icon">↗</span> relay<span class="local">LOCAL</span></a>
+  <label class="eyebrow" for="instance">PROJECT BOARD</label>
+  <select id="instance" aria-label="Project board"></select>
+  <nav id="project-history" aria-label="Project stages and history"></nav>
+  <button class="quiet new-instance" id="new-instance">＋ New board</button>
+  <nav aria-label="Attached agents" id="navigation"></nav>
+  <button class="attach-button" id="attach">＋ Attach a session</button>
+  <div class="sidebar-bottom"><span class="signal"></span> Local workspace<br><small>Instance-scoped messages and evidence</small><button id="appearance" class="quiet">Switch appearance</button></div>
+</aside>
+<div class="workspace">
+  <header><div class="breadcrumb">PROJECT <span>/</span> <span id="instance-name">Choose an instance</span></div><div class="header-actions"><span id="freshness">Connecting…</span><button class="quiet" id="refresh">↻ Refresh</button></div></header>
+  <main>
+    <div id="error" role="alert" hidden></div>
+    <p id="inspection-notice" class="readiness-strip" hidden>Inspection mode · local board records only. Research execution and preparation are disabled.</p>
+    <section class="page-heading"><div><div class="eyebrow" id="scope">SHARED OVERVIEW</div><h1 id="view-title">Your agents, in one place.</h1><p id="objective">Create a board to keep each project's sessions, messages, and context together.</p></div><button class="quiet" id="compose">Send a message</button></section>
+    <div class="context-row"><span id="instance-id"></span><a id="canonical" hidden target="_blank" rel="noopener noreferrer">Open canonical board ↗</a><button class="quiet" id="edit-context">Board settings</button></div>
+    <div id="empty" class="empty" hidden><span class="empty-symbol">↗</span><h2>A clear place to start</h2><p>Name your project board, then attach the harness sessions working on it.</p><button class="primary" id="empty-create">Create a board</button></div>
+    <div id="content" hidden>
+      <div id="research-root" hidden></div>
+      <div id="relay-feed">
+      <section class="stats" aria-label="Instance overview"><div><span>Attached sessions</span><strong id="count-sessions">0</strong></div><div><span>Waiting for you</span><strong id="count-questions">0</strong></div><div><span>Reported blockers</span><strong id="count-blockers">0</strong></div><div><span>Awaiting acknowledgment</span><strong id="count-messages">0</strong></div></section>
+      <section id="summary" class="summary" hidden></section>
+      <div class="columns"><div class="main-column">
+        <section class="panel"><div class="panel-heading"><h2>Work in progress</h2><span class="muted">Agent-reported · not acceptance</span></div><div id="tasks"></div></section>
+        <section class="panel"><div class="panel-heading"><h2>Shared board</h2><select id="event-filter" aria-label="Filter board events"><option value="all">All updates</option><option value="progress">Progress</option><option value="question">Questions</option><option value="blocker">Blockers</option><option value="deliverable">Deliverables</option><option value="note">Notes</option></select></div><div id="activity"></div></section>
+      </div><div class="side-column">
+        <section class="panel"><div class="panel-heading"><h2>Decisions & questions</h2><span class="eyebrow">YOUR INPUT</span></div><div id="questions"></div></section>
+        <section class="panel"><div class="panel-heading"><h2>Message outbox</h2><span class="muted">Delivery tracked</span></div><div id="outbox"></div></section>
+        <section class="panel"><div class="panel-heading"><h2>Connection details</h2></div><div id="connections"></div></section>
+      </div></div>
+    </div>
+    </div>
+  </main>
+</div>
+<dialog id="instance-dialog"><form id="instance-form"><h2>New project board</h2><p>The project name is the visible board label. The instance ID keeps its sessions and messages isolated.</p><label>Instance ID<input name="instance" required pattern="[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}" placeholder="website-refresh"></label><label>Project name<input name="title" required maxlength="160" placeholder="Website refresh"></label><label>Objective<textarea name="objective" rows="3" maxlength="6000" placeholder="What should this work achieve?"></textarea></label><div class="form-error" role="alert"></div><footer><button type="button" data-close>Cancel</button><button class="primary">Create board</button></footer></form></dialog>
+<dialog id="attach-dialog"><form id="attach-form"><h2>Attach a session</h2><p class="destination"></p><p>Register its identity here. The runtime must publish updates or receive an explicit handoff; this does not launch or connect an app.</p><label>Runtime<select name="runtime"><option>Codex</option><option>Claude</option><option>MiniMax</option><option>Unsloth</option><option>Hermes</option><option>Other</option></select></label><label>Session ID<input name="session" required pattern="[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}" placeholder="claude-implementation"></label><label>Display name<input name="label" required maxlength="160" placeholder="Implementation"></label><label>Model (as configured)<input name="model" maxlength="160" placeholder="Leave blank if unknown"></label><label>Session reference or link<input name="reference" maxlength="2000" placeholder="Exact thread ID, app session ID, or link"></label><div class="form-error" role="alert"></div><footer><button type="button" data-close>Cancel</button><button class="primary">Attach session</button></footer></form></dialog>
+<dialog id="message-dialog"><form id="message-form"><h2>Send a message</h2><p class="destination"></p><label>To session<select name="session" required></select></label><div id="reply-context" class="reply-context" hidden></div><label>Message<textarea name="text" rows="5" required maxlength="6000" placeholder="An answer, instruction, or useful context…"></textarea></label><p class="muted">Saved to this session's inbox. Delivery and acknowledgment need receipts from the receiving runtime.</p><div class="form-error" role="alert"></div><footer><button type="button" data-close>Cancel</button><button class="primary">Save to inbox</button></footer></form></dialog>
+<dialog id="context-dialog"><form id="context-form"><h2>Board settings</h2><p class="destination"></p><label>Project name<input name="title" required maxlength="160" placeholder="Project name"></label><label>Objective<textarea name="objective" rows="3" maxlength="6000"></textarea></label><label>Constraints and handoff context<textarea name="context" rows="7" maxlength="16000" placeholder="Scope, important decisions, evidence references, and things the agent must preserve."></textarea></label><label>Canonical board link<input name="board_url" maxlength="2000" placeholder="GoalBuddy or project board URL"></label><div class="form-error" role="alert"></div><footer><button type="button" data-close>Cancel</button><button class="primary">Save context</button></footer></form></dialog>
+<dialog id="research-detail"><div id="research-detail-body"></div><footer><button id="research-close">Close</button></footer></dialog>
+</body></html>
