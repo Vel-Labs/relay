@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "id": "00000000-0000-4000-8000-000000000001",
+  "from": "codex",
+  "to": "grokbot",
+  "kind": "social_packet",
+  "created_at": "2026-10-13T12:00:00+00:00",
+  "reply_to": null,
+  "thread_id": "00000000-0000-4000-8000-000000000001",
+  "priority": "low",
+  "expires_at": null,
+  "sensitivity": {
+    "employer": false,
+    "ledger": false,
+    "private_code": false,
+    "secrets_checked": true
+  },
+  "payload": {
+    "version": 1,
+    "packet_id": "00000000-0000-4000-8000-000000000002",
+    "created_at": "2026-10-13T12:00:00+00:00",
+    "author": "vel",
+    "cadence": "event",
+    "items": [
+      {
+        "project": "workspace:40_Code/infrastructure/workspace-context",
+        "repo_url": "",
+        "branch": "",
+        "commits": [],
+        "title": "Local attachment rehearsal",
+        "kind": "docs",
+        "what_changed": "A synthetic packet exercises the attachment flow; no remote exchange occurred.",
+        "why_it_matters": "We want to preserve a discovery and identify missing receipts.",
+        "proof": {
+          "links": [],
+          "screenshots": [],
+          "metrics": []
+        },
+        "pillar": "reliability",
+        "audience": "Haru and Steven",
+        "hook_ideas": [],
+        "format_suggestion": "single",
+        "related_thread_url": null,
+        "time_sensitive": false,
+        "time_sensitive_reason": null,
+        "postability": 0,
+        "sensitivity": {
+          "employer_ledger": false,
+          "private_code": false,
+          "secrets": false,
+          "unreleased": false
+        },
+        "cta": "none"
+      }
+    ]
+  }
+}

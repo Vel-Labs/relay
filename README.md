@@ -112,3 +112,10 @@ are deliberately absent. No connection to that workspace is required.
 ## License
 
 [MIT](LICENSE). Existing third-party licenses remain with their owners.
+
+## Optional offline handoff mailbox
+
+Validate and retain data-only attachment envelopes without a provider, webhook
+or executor. See [the offline mailbox guide](docs/agent-mailbox.md) for its
+consumer-specific contract, duplicate checks, reported receipts and test commands.
+It does not change the standalone board or enable delivery.

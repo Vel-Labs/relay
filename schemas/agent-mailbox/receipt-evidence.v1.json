@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:relay:agent-mailbox:receipt-evidence.v1",
+  "type": "object",
+  "properties": {
+    "content_sha256": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "format": "sha256"
+    },
+    "scope": {
+      "enum": [
+        "stored",
+        "handled",
+        "rejected"
+      ]
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "passed": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name",
+          "passed"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 30
+    },
+    "note": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000
+    }
+  },
+  "required": [
+    "content_sha256",
+    "scope",
+    "checks",
+    "note"
+  ],
+  "additionalProperties": false
+}

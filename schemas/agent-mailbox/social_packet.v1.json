@@ -1,0 +1,286 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:relay:agent-mailbox:social_packet.v1",
+  "type": "object",
+  "properties": {
+    "version": {
+      "enum": [
+        1
+      ]
+    },
+    "packet_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 36,
+      "format": "uuid4"
+    },
+    "created_at": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 40,
+      "format": "date-time"
+    },
+    "author": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "cadence": {
+      "enum": [
+        "event",
+        "daily",
+        "weekly"
+      ]
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "project": {
+            "enum": [
+              "workspace:40_Code/infrastructure/workspace-context"
+            ]
+          },
+          "repo_url": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 2048,
+            "format": "public-url-or-empty"
+          },
+          "branch": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 200
+          },
+          "commits": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "format": "git-sha"
+            },
+            "maxItems": 100
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "kind": {
+            "enum": [
+              "release",
+              "feature",
+              "fix",
+              "benchmark",
+              "demo",
+              "research",
+              "refactor",
+              "chore",
+              "docs"
+            ]
+          },
+          "what_changed": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 6000
+          },
+          "why_it_matters": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 6000
+          },
+          "proof": {
+            "type": "object",
+            "properties": {
+              "links": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2048,
+                  "format": "public-url"
+                },
+                "maxItems": 100
+              },
+              "screenshots": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2048,
+                  "format": "public-url-or-relative"
+                },
+                "maxItems": 100
+              },
+              "metrics": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 200
+                    },
+                    "value": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 200
+                    },
+                    "how_measured": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 2000
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "value",
+                    "how_measured"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 100
+              }
+            },
+            "required": [
+              "links",
+              "screenshots",
+              "metrics"
+            ],
+            "additionalProperties": false
+          },
+          "pillar": {
+            "enum": [
+              "orchestration",
+              "reliability",
+              "local-ai",
+              "build-log",
+              "crypto-agents"
+            ]
+          },
+          "audience": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "hook_ideas": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1000
+            },
+            "maxItems": 3
+          },
+          "format_suggestion": {
+            "enum": [
+              "single",
+              "thread",
+              "double_tap"
+            ]
+          },
+          "related_thread_url": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2048,
+                "format": "public-url"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "time_sensitive": {
+            "type": "boolean"
+          },
+          "time_sensitive_reason": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "postability": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3
+          },
+          "sensitivity": {
+            "type": "object",
+            "properties": {
+              "employer_ledger": {
+                "type": "boolean"
+              },
+              "private_code": {
+                "type": "boolean"
+              },
+              "secrets": {
+                "type": "boolean"
+              },
+              "unreleased": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "employer_ledger",
+              "private_code",
+              "secrets",
+              "unreleased"
+            ],
+            "additionalProperties": false
+          },
+          "cta": {
+            "enum": [
+              "repo star",
+              "try it",
+              "question to readers",
+              "none"
+            ]
+          }
+        },
+        "required": [
+          "project",
+          "repo_url",
+          "branch",
+          "commits",
+          "title",
+          "kind",
+          "what_changed",
+          "why_it_matters",
+          "proof",
+          "pillar",
+          "audience",
+          "hook_ideas",
+          "format_suggestion",
+          "related_thread_url",
+          "time_sensitive",
+          "time_sensitive_reason",
+          "postability",
+          "sensitivity",
+          "cta"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 20
+    }
+  },
+  "required": [
+    "version",
+    "packet_id",
+    "created_at",
+    "author",
+    "cadence",
+    "items"
+  ],
+  "additionalProperties": false
+}

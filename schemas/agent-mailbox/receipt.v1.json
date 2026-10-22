@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:relay:agent-mailbox:receipt.v1",
+  "type": "object",
+  "properties": {
+    "for_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 36,
+      "format": "uuid4"
+    },
+    "status": {
+      "enum": [
+        "ack",
+        "done",
+        "rejected"
+      ]
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 12000
+    },
+    "at": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 40,
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "for_id",
+    "status",
+    "reason",
+    "at"
+  ],
+  "additionalProperties": false
+}

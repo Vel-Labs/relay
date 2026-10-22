@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:relay:agent-mailbox:envelope.v1",
+  "type": "object",
+  "properties": {
+    "version": {
+      "enum": [
+        1
+      ]
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 36,
+      "format": "uuid4"
+    },
+    "from": {
+      "enum": [
+        "codex",
+        "grokbot"
+      ]
+    },
+    "to": {
+      "enum": [
+        "codex",
+        "grokbot"
+      ]
+    },
+    "kind": {
+      "enum": [
+        "social_packet",
+        "receipt",
+        "request",
+        "brief",
+        "result",
+        "status"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 40,
+      "format": "date-time"
+    },
+    "reply_to": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 36,
+          "format": "uuid4"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "thread_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 36,
+      "format": "uuid4"
+    },
+    "priority": {
+      "enum": [
+        "low",
+        "normal",
+        "high",
+        "urgent"
+      ]
+    },
+    "expires_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "sensitivity": {
+      "type": "object",
+      "properties": {
+        "employer": {
+          "type": "boolean"
+        },
+        "ledger": {
+          "type": "boolean"
+        },
+        "private_code": {
+          "type": "boolean"
+        },
+        "secrets_checked": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "employer",
+        "ledger",
+        "private_code",
+        "secrets_checked"
+      ],
+      "additionalProperties": false
+    },
+    "payload": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "version",
+    "id",
+    "from",
+    "to",
+    "kind",
+    "created_at",
+    "reply_to",
+    "thread_id",
+    "priority",
+    "expires_at",
+    "sensitivity",
+    "payload"
+  ],
+  "additionalProperties": false
+}

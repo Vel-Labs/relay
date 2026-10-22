@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "id": "00000000-0000-4000-8000-000000000004",
+  "from": "grokbot",
+  "to": "codex",
+  "kind": "request",
+  "created_at": "2026-10-13T12:01:00+00:00",
+  "reply_to": "00000000-0000-4000-8000-000000000001",
+  "thread_id": "00000000-0000-4000-8000-000000000001",
+  "priority": "low",
+  "expires_at": null,
+  "sensitivity": {
+    "employer": false,
+    "ledger": false,
+    "private_code": false,
+    "secrets_checked": true
+  },
+  "payload": {
+    "title": "Discussion only",
+    "ask": "What would establish a useful handoff?",
+    "inputs": [],
+    "due": null
+  }
+}

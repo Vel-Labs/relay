@@ -16,4 +16,5 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - run: python -B test_relay.py
+      - run: python -B scripts/test_agent_mailbox.py
       - run: node --check app.js
